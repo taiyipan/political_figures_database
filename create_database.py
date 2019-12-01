@@ -10,9 +10,13 @@ cur = conn.cursor()
 cur.executescript('''
     DROP TABLE IF EXISTS house_members;
     DROP TABLE IF EXISTS senate_members;
+    DROP TABLE IF EXISTS house_votes;
+    DROP TABLE IF EXISTS senate_votes;
+    DROP TABLE IF EXISTS house_voting_records;
+    DROP TABLE IF EXISTS senate_voting_records;
 
     CREATE TABLE IF NOT EXISTS house_members (
-        id                           VARCHAR(15)    PRIMARY KEY,
+        id                           VARCHAR(10)    PRIMARY KEY,
         title                        VARCHAR(20),
         short_title                  VARCHAR(10),
         api_uri                      VARCHAR(50),
@@ -61,7 +65,7 @@ cur.executescript('''
     );
 
     CREATE TABLE IF NOT EXISTS senate_members (
-        id                           VARCHAR(15)    PRIMARY KEY,
+        id                           VARCHAR(10)    PRIMARY KEY,
         title                        VARCHAR(20),
         short_title                  VARCHAR(10),
         api_uri                      VARCHAR(50),
@@ -107,6 +111,120 @@ cur.executescript('''
         missed_votes_pct             DECIMAL(5, 2),
         votes_with_party_pct         DECIMAL(5, 2),
         votes_against_party_pct      DECIMAL(5, 2)
+    );
+
+    CREATE TABLE IF NOT EXISTS house_votes (
+        id                                    INTEGER            PRIMARY KEY       AUTOINCREMENT,
+        congress                              INT,
+        session                               INT,
+        chamber                               VARCHAR(10),
+        roll_call                             INT,
+        source                                VARCHAR(100),
+        url                                   VARCHAR(100),
+        bill_id                               VARCHAR(20),
+        bill_number                           VARCHAR(20),
+        bill_api_uri                          VARCHAR(100),
+        bill_title                            VARCHAR(1000),
+        bill_short_title                      VARCHAR(500),
+        bill_latest_action                    VARCHAR(200),
+        amendment_number                      VARCHAR(20),
+        amendment_api_uri                     VARCHAR(100),
+        amendment_sponsor_id                  VARCHAR(20),
+        amendment_sponsor                     VARCHAR(50),
+        amendment_sponsor_uri                 VARCHAR(100),
+        amendment_sponsor_party               CHAR(1),
+        amendment_sponsor_state               CHAR(2),
+        question                              VARCHAR(200),
+        question_text                         VARCHAR(200),
+        description                           VARCHAR(500),
+        vote_type                             VARCHAR(50),
+        date                                  DATE,
+        time                                  TIME,
+        result                                VARCHAR(20),
+        democratic_yes                        INT,
+        democratic_no                         INT,
+        democratic_present                    INT,
+        democratic_not_voting                 INT,
+        democratic_majority_position          VARCHAR(10),
+        republican_yes                        INT,
+        republican_no                         INT,
+        republican_present                    INT,
+        republican_not_voting                 INT,
+        republican_majority_position          VARCHAR(10),
+        independent_yes                       INT,
+        independent_no                        INT,
+        independent_present                   INT,
+        independent_not_voting                INT,
+        total_yes                             INT,
+        total_no                              INT,
+        total_present                         INT,
+        total_not_voting                      INT
+    );
+
+    CREATE TABLE IF NOT EXISTS senate_votes (
+        id                                    INTEGER            PRIMARY KEY       AUTOINCREMENT,
+        congress                              INT,
+        session                               INT,
+        chamber                               VARCHAR(10),
+        roll_call                             INT,
+        source                                VARCHAR(100),
+        url                                   VARCHAR(100),
+        bill_id                               VARCHAR(20),
+        bill_number                           VARCHAR(20),
+        bill_api_uri                          VARCHAR(100),
+        bill_title                            VARCHAR(1000),
+        bill_short_title                      VARCHAR(500),
+        bill_latest_action                    VARCHAR(200),
+        amendment_number                      VARCHAR(20),
+        amendment_api_uri                     VARCHAR(100),
+        amendment_sponsor_id                  VARCHAR(20),
+        amendment_sponsor                     VARCHAR(50),
+        amendment_sponsor_uri                 VARCHAR(100),
+        amendment_sponsor_party               CHAR(1),
+        amendment_sponsor_state               CHAR(2),
+        question                              VARCHAR(200),
+        question_text                         VARCHAR(200),
+        description                           VARCHAR(500),
+        vote_type                             VARCHAR(50),
+        date                                  DATE,
+        time                                  TIME,
+        result                                VARCHAR(20),
+        tie_breaker                           VARCHAR(100),
+        tie_breaker_vote                      VARCHAR(100),
+        document_number                       VARCHAR(50),
+        document_title                        VARCHAR(200),
+        democratic_yes                        INT,
+        democratic_no                         INT,
+        democratic_present                    INT,
+        democratic_not_voting                 INT,
+        democratic_majority_position          VARCHAR(10),
+        republican_yes                        INT,
+        republican_no                         INT,
+        republican_present                    INT,
+        republican_not_voting                 INT,
+        republican_majority_position          VARCHAR(10),
+        independent_yes                       INT,
+        independent_no                        INT,
+        independent_present                   INT,
+        independent_not_voting                INT,
+        total_yes                             INT,
+        total_no                              INT,
+        total_present                         INT,
+        total_not_voting                      INT
+    );
+
+    CREATE TABLE IF NOT EXISTS house_voting_records (
+        id            INTEGER          PRIMARY KEY           AUTOINCREMENT,
+        vote_id       INTEGER          REFERENCES house_votes (id),
+        member_id     VARCHAR(10)      REFERENCES house_members (id),
+        vote          VARCHAR(10)      DEFAULT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS senate_voting_records (
+        id            INTEGER          PRIMARY KEY           AUTOINCREMENT,
+        vote_id       INTEGER          REFERENCES senate_votes (id),
+        member_id     VARCHAR(10)      REFERENCES senate_members (id),
+        vote          VARCHAR(10)      DEFAULT NULL
     );
 ''')
 
@@ -351,5 +469,280 @@ for entry in senate_members['results'][0]['members']:
             conn.commit()
     except:
         print(entry)
+# final commit
+conn.commit()
+
+# create votes tables
+house_prefix = 'rollcall_votes/house_116/vote_'
+senate_prefix = 'rollcall_votes/senate_116/vote_'
+suffix = '.json'
+
+# read and insert data into house_votes
+cycle = 0
+for i in range(1, 2000):
+    try:
+        fname = house_prefix + str(i) + suffix
+        house_vote = json.loads(open(fname).read())
+        print('Scanning', fname)
+    except IOError:
+        print('Source exhausted.')
+        break
+    v = house_vote['results']['votes']['vote']
+    cur.execute('''
+        INSERT INTO house_votes (
+            congress,
+            session,
+            chamber,
+            roll_call,
+            source,
+            url,
+            bill_id,
+            bill_number,
+            bill_api_uri,
+            bill_title,
+            bill_short_title,
+            bill_latest_action,
+            amendment_number,
+            amendment_api_uri,
+            amendment_sponsor_id,
+            amendment_sponsor,
+            amendment_sponsor_uri,
+            amendment_sponsor_party,
+            amendment_sponsor_state,
+            question,
+            question_text,
+            description,
+            vote_type,
+            date,
+            time,
+            result,
+            democratic_yes,
+            democratic_no,
+            democratic_present,
+            democratic_not_voting,
+            democratic_majority_position,
+            republican_yes,
+            republican_no,
+            republican_present,
+            republican_not_voting,
+            republican_majority_position,
+            independent_yes,
+            independent_no,
+            independent_present,
+            independent_not_voting,
+            total_yes,
+            total_no,
+            total_present,
+            total_not_voting
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?
+        )''', (
+        v['congress'],
+        v['session'],
+        v['chamber'],
+        v['roll_call'],
+        v['source'],
+        v['url'],
+        v['bill'].get('bill_id'),
+        v['bill'].get('number'),
+        v['bill'].get('api_uri'),
+        v['bill'].get('title'),
+        v['bill'].get('short_title'),
+        v['bill'].get('latest_action'),
+        v['amendment'].get('number'),
+        v['amendment'].get('api_uri'),
+        v['amendment'].get('sponsor_id'),
+        v['amendment'].get('sponsor'),
+        v['amendment'].get('sponsor_uri'),
+        v['amendment'].get('sponsor_party'),
+        v['amendment'].get('sponsor_state'),
+        v['question'],
+        v['question_text'],
+        v['description'],
+        v['vote_type'],
+        v['date'],
+        v['time'],
+        v['result'],
+        v['democratic'].get('yes'),
+        v['democratic'].get('no'),
+        v['democratic'].get('present'),
+        v['democratic'].get('not_voting'),
+        v['democratic'].get('majority_position'),
+        v['republican'].get('yes'),
+        v['republican'].get('no'),
+        v['republican'].get('present'),
+        v['republican'].get('not_voting'),
+        v['republican'].get('majority_position'),
+        v['independent'].get('yes'),
+        v['independent'].get('no'),
+        v['independent'].get('present'),
+        v['independent'].get('not_voting'),
+        v['total'].get('yes'),
+        v['total'].get('no'),
+        v['total'].get('present'),
+        v['total'].get('not_voting')
+    ))
+    # read and insert data into house_voting_records
+    positions = v.get('positions')
+    for p in positions:
+        cur.execute('''
+            INSERT INTO house_voting_records (
+                vote_id,
+                member_id,
+                vote
+            ) VALUES (
+                ?, ?, ?
+            )
+        ''', (
+            v['roll_call'], p['member_id'], p['vote_position']
+        ))
+        # update cycle
+        cycle += 1
+        # commit
+        if cycle % 500 == 0:
+            conn.commit()
+# final commit
+conn.commit()
+
+# read and insert data into senate_votes
+cycle = 0
+for i in range(1, 2000):
+    try:
+        fname = senate_prefix + str(i) + suffix
+        senate_vote = json.loads(open(fname).read())
+        print('Scanning', fname)
+    except IOError:
+        print('Source exhausted.')
+        break
+    v = senate_vote['results']['votes']['vote']
+    cur.execute('''
+        INSERT INTO senate_votes (
+            congress,
+            session,
+            chamber,
+            roll_call,
+            source,
+            url,
+            bill_id,
+            bill_number,
+            bill_api_uri,
+            bill_title,
+            bill_short_title,
+            bill_latest_action,
+            amendment_number,
+            amendment_api_uri,
+            amendment_sponsor_id,
+            amendment_sponsor,
+            amendment_sponsor_uri,
+            amendment_sponsor_party,
+            amendment_sponsor_state,
+            question,
+            question_text,
+            description,
+            vote_type,
+            date,
+            time,
+            result,
+            tie_breaker,
+            tie_breaker_vote,
+            document_number,
+            document_title,
+            democratic_yes,
+            democratic_no,
+            democratic_present,
+            democratic_not_voting,
+            democratic_majority_position,
+            republican_yes,
+            republican_no,
+            republican_present,
+            republican_not_voting,
+            republican_majority_position,
+            independent_yes,
+            independent_no,
+            independent_present,
+            independent_not_voting,
+            total_yes,
+            total_no,
+            total_present,
+            total_not_voting
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?
+        )''', (
+        v['congress'],
+        v['session'],
+        v['chamber'],
+        v['roll_call'],
+        v['source'],
+        v['url'],
+        v['bill'].get('bill_id'),
+        v['bill'].get('number'),
+        v['bill'].get('api_uri'),
+        v['bill'].get('title'),
+        v['bill'].get('short_title'),
+        v['bill'].get('latest_action'),
+        v['amendment'].get('number'),
+        v['amendment'].get('api_uri'),
+        v['amendment'].get('sponsor_id'),
+        v['amendment'].get('sponsor'),
+        v['amendment'].get('sponsor_uri'),
+        v['amendment'].get('sponsor_party'),
+        v['amendment'].get('sponsor_state'),
+        v['question'],
+        v['question_text'],
+        v['description'],
+        v['vote_type'],
+        v['date'],
+        v['time'],
+        v['result'],
+        v['tie_breaker'],
+        v['tie_breaker_vote'],
+        v['document_number'],
+        v['document_title'],
+        v['democratic'].get('yes'),
+        v['democratic'].get('no'),
+        v['democratic'].get('present'),
+        v['democratic'].get('not_voting'),
+        v['democratic'].get('majority_position'),
+        v['republican'].get('yes'),
+        v['republican'].get('no'),
+        v['republican'].get('present'),
+        v['republican'].get('not_voting'),
+        v['republican'].get('majority_position'),
+        v['independent'].get('yes'),
+        v['independent'].get('no'),
+        v['independent'].get('present'),
+        v['independent'].get('not_voting'),
+        v['total'].get('yes'),
+        v['total'].get('no'),
+        v['total'].get('present'),
+        v['total'].get('not_voting')
+    ))
+    # read and insert data into senate_voting_records
+    positions = v.get('positions')
+    for p in positions:
+        cur.execute('''
+            INSERT INTO senate_voting_records (
+                vote_id,
+                member_id,
+                vote
+            ) VALUES (
+                ?, ?, ?
+            )
+        ''', (
+            v['roll_call'], p['member_id'], p['vote_position']
+        ))
+        # update cycle
+        cycle += 1
+        # commit
+        if cycle % 500 == 0:
+            conn.commit()
 # final commit
 conn.commit()
