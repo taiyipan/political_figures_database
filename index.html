@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>US Congressional Database</title>
+  </head>
+
+  <body>
+    <header>
+      <img src="img/logo.jpg" alt="American Flag" height="300" width="200">
+    </header>
+
+    <main>
+      <form id="search_form" class="main" action="search.php" method="post" autocomplete="on">
+        <p>Search US Congressional Database</p>
+        <p>Areas of Search
+          <select id="search_area_list" class="list" name="list">
+            <option value="house_members">House Members</option>
+            <option value="senate_members">Senate Members</option>
+            <option value="house_votes">House Votes</option>
+            <option value="senate_votes">Senate Votes</option>
+          </select>
+      </p>
+        <p><input type="text" id="search_box" name="input" placeholder="Enter your query here"></p>
+        <p><input type="submit" id="search_button" name="search" value="Search"></p>
+      </form>
+    </main>
+    <footer></footer>
+  </body>
+</html>
