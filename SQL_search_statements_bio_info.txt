@@ -1,0 +1,58 @@
+/*Data for members
+Note: I have separated the search for house and senate. 
+I have hard coded the names here but they should be replaced with the search names.*/
+
+/*Search for name in House
+Info: Brings back all the columns from the the members table.
+*/
+SELECT * 
+FROM house_members
+WHERE last_name = "Adams" AND first_name = "Alma";
+
+
+/*Search for name in House:
+Note: I selected the columns I think would be useful for member bio info.
+Perhaps we can have a table with just this info for their bio?   */
+SELECT 
+	title,
+	first_name,
+	last_name,
+	date_of_birth,
+	gender,
+	party,
+	twitter_account,
+	facebook_account,
+	office,
+	phone,
+	state,
+	district	
+FROM house_members
+WHERE last_name = "Adams" AND first_name = "Alma";
+
+/*Search for name in Senate:
+Info: Brings back all the columns from the the members table. */
+SELECT *	
+FROM senate_members
+WHERE last_name = "Baldwin" AND first_name = "Tammy";
+
+/*Search for name in Senate:
+Note: I selected the columns I think would be useful for member bio info.
+The senate differs in the last column name, state_rank instead of distict. 
+Senior vs Junior senator. */
+SELECT
+	title,
+	first_name,
+	last_name,
+	date_of_birth,
+	gender,
+	party,
+	twitter_account,
+	facebook_account,
+	office,
+	phone,
+	state,
+	state_rank
+FROM senate_members
+WHERE last_name = "Baldwin" AND first_name = "Tammy";
+
+
