@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<?php include_once "/php/house_member_query.php" ?>
+<?php include_once "php/house_member_query.php" ?>
 
 <html lang="en" dir="ltr">
   <head>

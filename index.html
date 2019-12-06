@@ -4,6 +4,9 @@
   <head>
     <meta charset="utf-8">
     <title>US Congressional Database</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
 
   <body>
@@ -28,4 +31,27 @@
     </main>
     <footer></footer>
   </body>
+  <script>
+  // this is where our list goes for the autocomplete
+  autoList = [ "Pelosi", "Nancy Pelosi", "texas", "abortion", "Nunes", "Immigration", "Schiff", "Budget" ]
+  //turns jQuery on for the search box and enables the autocomplete
+  $( "#search_box" ).autocomplete({
+    source: autoList
+  });
+  /*$("#search_button").click(function(){
+    alert("Something can happen here!");
+  });
+ fiddling with this to try to redirect search based on searchbox value
+  $( ".autocomplete" ).autocomplete( "search", "" )
+  $( ".autocomplete" ).on( "autocompleteselect", function() {
+  	document.getElementById("search").href = "https://setworks.net/177"
+  } );
+  $( "input" )
+    .keyup(function() {
+      var value = $( this ).val();
+      $( "#autocomplete" ).text( value );
+    })
+    .keyup();
+  */
+  </script>
 </html>

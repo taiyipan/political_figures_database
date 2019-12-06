@@ -11,19 +11,19 @@
       $tokens = explode(' ', $input);
       $first_name = $tokens[0];
       $last_name = $tokens[1];
-      include_once "/pages/house_member.php";
+      include_once "pages/house_member.php";
       break;
 
     case 'senate_members':
       $tokens = explode(' ', $input);
       $first_name = $tokens[0];
       $last_name = $tokens[1];
-      include_once "/pages/senate_member.php";
+      include_once "pages/senate_member.php";
       break;
 
     case 'house_votes':
       $num = $input;
-      include_once "/pages/house_vote.php";
+      include_once "pages/house_vote.php";
       break;
 
     case 'senate_votes':
