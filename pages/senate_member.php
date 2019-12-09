@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- this path may need changed for production--works for testing-->
-<?php include_once "../php/senate_member_query.php" ?>
+<?php include_once "php/senate_member_query.php" ?>
 
 <html lang="en" dir="ltr">
   <head>
@@ -14,7 +14,8 @@
   <body>
   <div class="grid-container">
       <div class="member_info">
-          <img src="../img/senate_members/elizabeth_warren.jpg" alt="member" width="480" height="600">
+          <?php $img_path = "img/senate_members/" . $first_name . "_" . $last_name . ".jpg" ?>
+          <img src="<?php echo $img_path ?>" alt="senator_photo" width="480" height="600">
           <p id = 'name'><?php echo $first_name . " " . $last_name . " - " . $title ?></p>
           <p id = 'party'>Party: <?php echo $party ?></p>
           <p id = 'date_of_birth'>Date of Birth: <?php echo $date_of_birth ?></p>
