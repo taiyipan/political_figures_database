@@ -185,3 +185,49 @@ a:hover {
 .footer_right ul li{
 	padding-right:30px;
 }
+
+/*=============================================
+=                Member Page                  =
+=============================================*/
+
+.member_info { grid-area: member; }
+.voting_record { grid-area: votes; }
+.bils {grid-area: bills;}
+
+
+.grid-container {
+	display: grid;
+	grid-template-areas:
+			'member votes bills bills';
+	grid-gap: 10px;
+	background-color: #2196F3;
+	padding: 10px;
+}
+/*
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+}
+*/
+
+.member_info{
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	padding: 20px 0;
+	font-size: 20px;
+}
+.voting_record{
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	padding: 20px 0;
+	font-size: 20px;
+}
+
+.bills{
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: left;
+	padding: 20px 0;
+	font-size: 20px;
+}
