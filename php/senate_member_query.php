@@ -1,12 +1,12 @@
 <?php
   //connect to database
-  $path = 'political_figures_database.db';
+  $path = '../political_figures_database.db';
   $db = new SQLite3($path) or die('Unable to open database');
 
   //query database
   $query = "SELECT *
             FROM senate_members
-            WHERE first_name = '$first_name' AND last_name = '$last_name'";
+            WHERE first_name = '$first_name' AND last_name = '$last_name'"; //this is hard-coded for testing
   $result = $db -> query($query) or die('Query failed');
 
   //retrieve first entry as array
@@ -59,4 +59,72 @@
   $missed_votes_pct = $entry['missed_votes_pct'];
   $votes_with_party_pct = $entry['votes_with_party_pct'];
   $votes_against_party_pct = $entry['votes_against_party_pct'];
+
+//query database for voting record
+//we want vote_id[1] and vote[4]
+$query2 = "SELECT * FROM senate_voting_records
+         WHERE member_id = 'W000817'"; //this is hard-coded and will need changed for production--works for testing
+$result2 = $db -> query($query2) or die('Query failed');
+
+//iterate thru voting record and store in array
+$bills = array();
+$i = 0;
+while($res = $result2 -> fetchArray(SQLITE3_ASSOC))
+{
+  if(!isset($res['vote_id'])) continue;
+  $bills[$i]['vote_id'] = $res['vote_id'];
+  $bills[$i]['vote'] = $res['vote'];
+  $i++;
+}
+
+//query vote info
+$query3 = "SELECT * FROM senate_votes";
+$result3 = $db -> query($query3) or die('Query failed');
+
+//iterate thru bills and store in array
+$j = 0;
+
+while($res2 = $result3 -> fetchArray(SQLITE3_ASSOC))
+{
+  if(!isset($res2['date'])) continue;
+  $bills[$j]['date'] = $res2['date'];
+  $bills[$j]['url'] = $res2['url'];
+  $bills[$j]['bill_id'] = $res2['bill_id'];
+  $bills[$j]['bill_number'] = $res2['bill_number'];
+  $bills[$i]['bill_title'] = $res['bill_title'];
+  $bills[$j]['bill_short_title'] = $res2['bill_short_title'];
+  $bills[$j]['amendment_number'] = $res2['amendment_number'];
+  $bills[$i]['congress'] = $res['congress'];
+  $bills[$i]['session'] = $res['session'];
+  $bills[$i]['chamber'] = $res['chamber'];
+  $bills[$i]['url'] = $res['url'];
+  $bills[$i]['bill_latest_action'] = $res['bill_latest_action'];
+  $bills[$i]['amendment_number'] = $res['amendment_number'];
+  $bills[$i]['question'] = $res['question'];
+  $bills[$i]['question_text'] = $res['question_text'];
+  $bills[$i]['description'] = $res['description'];
+  $bills[$i]['vote_type'] = $res['vote_type'];
+  $bills[$i]['date'] = $res['date'];
+  $bills[$i]['result'] = $res['result'];
+  $bills[$i]['democratic_yes'] = $res['democratic_yes'];
+  $bills[$i]['democratic_no'] = $res['democratic_no'];
+  $bills[$i]['democratic_present'] = $res['democratic_present'];
+  $bills[$i]['democratic_not_voting'] = $res['democratic_not_voting'];
+  $bills[$i]['democratic_majority_position'] = $res['democratic_majority_position'];
+  $bills[$i]['republican_yes'] = $res['republican_yes'];
+  $bills[$i]['republican_no'] = $res['republican_no'];
+  $bills[$i]['republican_present'] = $res['republican_present'];
+  $bills[$i]['republican_not_voting'] = $res['republican_not_voting'];
+  $bills[$i]['republican_majority_position'] = $res['republican_majority_position'];
+  $bills[$i]['independent_yes'] = $res['independent_yes'];
+  $bills[$i]['independent_no'] = $res['independent_no'];
+  $bills[$i]['independent_present'] = $res['independent_present'];
+  $bills[$i]['independent_not_voting'] = $res['independent_not_voting'];
+  $bills[$i]['independent_majority_position'] = $res['independent_majority_position'];
+  $bills[$i]['total_yes'] = $res['total_yes'];
+  $bills[$i]['total_no'] = $res['total_no'];
+  $bills[$i]['total_present'] = $res['total_present'];
+  $bills[$i]['total_not_voting'] = $res['total_not_voting'];
+  $j++;
+}
 ?>

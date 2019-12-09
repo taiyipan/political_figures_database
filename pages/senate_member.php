@@ -1,75 +1,72 @@
 <!DOCTYPE html>
 
-<?php include_once "php/senate_member_query.php" ?>
+<!-- this path may need changed for production--works for testing-->
+<?php include_once "../php/senate_member_query.php" ?>
 
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>US Senate Member Profile</title>
+      <link rel="stylesheet" href="../front_end/style.css">
   </head>
 
   <body>
-    <header>
+  <body>
+  <div class="grid-container">
+      <div class="member_info">
+          <img src="../img/senate_members/elizabeth_warren.jpg" alt="member" width="480" height="600">
+          <p id = 'name'><?php echo $first_name . " " . $last_name . " - " . $title ?></p>
+          <p id = 'party'>Party: <?php echo $party ?></p>
+          <p id = 'date_of_birth'>Date of Birth: <?php echo $date_of_birth ?></p>
+          <p id = 'gender'>Gender: <?php echo $gender ?></p>
+      </div>
 
-    </header>
+      <div class="voting_record">
+          <?php
+          /*
+          //print voting record
+          foreach($voting_record as $value) {
+              echo $value['vote_id'];
+              echo "  ";
+              echo $value['vote'];
+              echo "<br>";
+          }
+          */
+          ?>
+      </div>
 
-    <main>
-      <h1>Senator Profile</h1>
-      <nav>
-        <ul>
-          <li>id <?php echo $id ?></li>
-          <li>title <?php echo $title ?></li>
-          <li>short_title <?php echo $short_title ?></li>
-          <li>api_uri <?php echo $api_uri ?></li>
-          <li>first_name <?php echo $first_name ?></li>
-          <li>middle_name <?php echo $middle_name ?></li>
-          <li>last_name <?php echo $last_name ?></li>
-          <li>suffix <?php echo $suffix ?></li>
-          <li>date_of_birth <?php echo $date_of_birth ?></li>
-          <li>gender <?php echo $gender ?></li>
-          <li>party <?php echo $party ?></li>
-          <li>leadership_role <?php echo $leadership_role ?></li>
-          <li>twitter_account <?php echo $twitter_account ?></li>
-          <li>facebook_account <?php echo $facebook_account ?></li>
-          <li>youtube_account <?php echo $youtube_account ?></li>
-          <li>govtrack_id <?php echo $govtrack_id ?></li>
-          <li>cspan_id <?php echo $cspan_id ?></li>
-          <li>votesmart_id <?php echo $votesmart_id ?></li>
-          <li>icpsr_id <?php echo $icpsr_id ?></li>
-          <li>crp_id <?php echo $crp_id ?></li>
-          <li>google_entity_id <?php echo $google_entity_id ?></li>
-          <li>fec_candidate_id <?php echo $fec_candidate_id ?></li>
-          <li>url <?php echo $url ?></li>
-          <li>rss_url <?php echo $rss_url ?></li>
-          <li>contact_form <?php echo $contact_form ?></li>
-          <li>in_office <?php echo $in_office ?></li>
-          <li>cook_pvi <?php echo $cook_pvi ?></li>
-          <li>dw_nominate <?php echo $dw_nominate ?></li>
-          <li>ideal_point <?php echo $ideal_point ?></li>
-          <li>seniority <?php echo $seniority ?></li>
-          <li>next_election <?php echo $next_election ?></li>
-          <li>total_votes <?php echo $total_votes ?></li>
-          <li>missed_votes <?php echo $missed_votes ?></li>
-          <li>total_present <?php echo $total_present ?></li>
-          <li>last_updated <?php echo $last_updated ?></li>
-          <li>ocd_id <?php echo $ocd_id ?></li>
-          <li>office <?php echo $office ?></li>
-          <li>phone <?php echo $phone ?></li>
-          <li>fax <?php echo $fax ?></li>
-          <li>state <?php echo $state ?></li>
-          <li>senate_class <?php echo $senate_class ?></li>
-          <li>state_rank <?php echo $state_rank ?></li>
-          <li>lis_id <?php echo $lis_id ?></li>
-          <li>missed_votes_pct <?php echo $missed_votes_pct ?></li>
-          <li>votes_with_party_pct <?php echo $votes_with_party_pct ?></li>
-          <li>votes_against_party_pct <?php echo $votes_against_party_pct ?></li>
-        </ul>
-      </nav>
+      <div class="bills">
+          <table>
+              <tr>
+                  <th>Vote</th>
+                  <th>Vote ID</th>
+                  <th>Datesssssssss</th>
+                  <th>Bill Number</th>
+                  <th>Bill Short Title</th>
+              </tr>
+              <?php
+              //print bills
+              foreach($bills as $value2)
+              {
+                  if(isset($value2['bill_short_title']))
+                  {
+                      echo "<tr><td>" . $value2["vote"]. "</td><td>" . $value2["vote_id"] . "</td><td>" .$value2["date"]. "</td><td>" . $value2["bill_number"] . "</td><td>"
+                          . $value2["bill_short_title"]. "</td></tr>";
+                      /*
+                      echo $value2['date'];
+                      echo "  ";
+                      echo $value2['bill_number'];
+                      echo "  ";
+                      echo $value2['bill_short_title'];
+                      echo "  ";
+                      echo "<br>";
+                      */
 
-    </main>
-
-    <footer>
-      <p><a href="index.html">Go back</a></p>
-    </footer>
+                  }
+              }
+              echo "</table>";
+              ?>
+      </div>
+  </div>
   </body>
 </html>
