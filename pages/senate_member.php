@@ -14,7 +14,7 @@
   <body>
   <div class="grid-container">
       <div class="member_info">
-          <?php $img_path = "img/senate_members/" . $first_name . "_" . $last_name . ".jpg" ?>
+          <?php $img_path = "img/senate_members/" . strtolower($first_name) . "_" . strtolower($last_name) . ".jpg" ?>
           <img src="<?php echo $img_path ?>" alt="senator_photo" width="480" height="600">
           <p id = 'name'><?php echo $first_name . " " . $last_name . " - " . $title ?></p>
           <p id = 'party'>Party: <?php echo $party ?></p>
