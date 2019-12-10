@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <title>US Congressional Database</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
 
   <body>
@@ -38,7 +38,7 @@
   houseVoteList = [ "abortion", "Immigration", "Budget" ];
   senateVoteList = [ "abortion", "Immigration", "Budget", "Judges" ];
   senateMemberList = [ "Lamar Alexander ", "Tammy Baldwin ", "John Barrasso ", "Michael Bennet ", "Marsha Blackburn ", "Richard Blumenthal ", "Roy Blunt ", "Cory Booker ", "John Boozman ", "Mike Braun ", "Sherrod Brown ", "Richard Burr ", "Maria Cantwell ", "Shelley Capito ", "Benjamin Cardin ", "Thomas Carper ", "Bob Casey ", "Bill Cassidy ", "Susan Collins ", "Christopher Coons ", "John Cornyn ", "Catherine  Cortez Masto  ", "Tom Cotton ", "Kevin Cramer ", "Michael Crapo ", "Ted Cruz ", "Steve Daines ", "Tammy Duckworth ", "Richard Durbin ", "Michael Enzi ", "Joni Ernst ", "Dianne Feinstein ", "Deb Fischer ", "Cory Gardner ", "Kirsten Gillibrand ", "Lindsey Graham ", "Charles Grassley ", "Kamala Harris ", "Margaret Hassan ", "Joshua Hawley ", "Martin Heinrich ", "Mazie Hirono ", "John Hoeven ", "Cindy Hyde-Smith ", "James Inhofe ", "Johnny Isakson ", "Ron Johnson ", "Doug Jones ", "Tim Kaine ", "John Kennedy ", "Angus King ", "Amy Klobuchar ", "James Lankford ", "Patrick Leahy ", "Mike Lee ", "Joe Manchin ", "Edward Markey ", "Mitch McConnell ", "Martha McSally ", "Robert Menendez ", "Jeff Merkley ", "Jerry Moran ", "Lisa Murkowski ", "Christopher Murphy ", "Patty Murray ", "Rand Paul ", "David Perdue ", "Gary Peters ", "Rob Portman ", "Jack Reed ", "Jim Risch ", "Pat Roberts ", "Mitt Romney ", "Jacky Rosen ", "Mike Rounds ", "Marco Rubio ", "Bernard Sanders ", "Ben Sasse ", "Brian Schatz ", "Charles Schumer ", "Rick Scott ", "Tim Scott ", "Jeanne Shaheen ", "Richard Shelby ", "Kyrsten Sinema ", "Tina Smith ", "Debbie Stabenow ", "Dan Sullivan ", "Jon Tester ", "John Thune ", "Thom Tillis ", "Patrick Toomey ", "Tom Udall ", "Chris  Van Hollen  ", "Mark Warner ", "Elizabeth Warren ", "Sheldon Whitehouse ", "Roger Wicker ", "Ron Wyden ", "Todd Young" ];
-  //unused concat on all of our lists 
+  //unused concat on all of our lists
   allList = [];
   //turns jQuery on for the search box and enables the autocomplete
   //default source choice to default list choice
@@ -68,7 +68,7 @@ $('#search_area_list').on('change', function(){
  refreshArray();
 });
 //triggers autocomplete
-/*OLD  
+/*OLD
 $( "#search_box" ).autocomplete({
 source: sourceChoice
 });

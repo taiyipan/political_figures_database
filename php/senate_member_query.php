@@ -1,6 +1,6 @@
 <?php
   //connect to database
-  $path = '../political_figures_database.db';
+  $path = 'political_figures_database.db';
   $db = new SQLite3($path) or die('Unable to open database');
 
   //query database
