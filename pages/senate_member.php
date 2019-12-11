@@ -7,66 +7,55 @@
   <head>
     <meta charset="utf-8">
     <title>US Senate Member Profile</title>
-      <link rel="stylesheet" href="../front_end/style.css">
+      <link rel="stylesheet" href="front_end/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
   <body>
-  <div class="grid-container">
-      <div class="member_info">
+  <div id="grid-container">
+    <div id="left_side">
+      <div id="card">
           <?php $img_path = "img/senate_members/" . strtolower($first_name) . "_" . strtolower($last_name) . ".jpg" ?>
-          <img src="<?php echo $img_path ?>" alt="senator_photo" width="480" height="600">
-          <p id = 'name'><?php echo $first_name . " " . $last_name . " - " . $title ?></p>
-          <p id = 'party'>Party: <?php echo $party ?></p>
-          <p id = 'date_of_birth'>Date of Birth: <?php echo $date_of_birth ?></p>
-          <p id = 'gender'>Gender: <?php echo $gender ?></p>
+          <img src="<?php echo $img_path ?>" alt="member" style="width:100%">
+          <h1><?php echo $first_name . " " . $last_name . " - " . $title ?></h1>
+          <p><?php echo $party ?></p>
+          <p><?php echo $state ?></p>
+          <div style="margin: 24px 0;">
+              <a class='logo' href="https://www.youtube.com/<?php echo $youtube_account ?>"><i class="fa fa-youtube"></i></a>
+              <a class='logo' href="https://www.twitter.com/<?php echo $twitter_account ?>"><i class="fa fa-twitter"></i></a>
+              <a class='logo' href="https://www.facebook.com/<?php echo $facebook_account ?>"><i class="fa fa-facebook"></i></a>
+          </div>
+          <p><button><a class='contact' href="<?php echo $contact_form ?>">Contact</a></button></p>
       </div>
+    </div>
 
-      <div class="voting_record">
-          <?php
-          /*
-          //print voting record
-          foreach($voting_record as $value) {
-              echo $value['vote_id'];
-              echo "  ";
-              echo $value['vote'];
-              echo "<br>";
-          }
-          */
-          ?>
-      </div>
-
-      <div class="bills">
-          <table>
-              <tr>
-                  <th>Vote</th>
-                  <th>Vote ID</th>
-                  <th>Datesssssssss</th>
-                  <th>Bill Number</th>
-                  <th>Bill Short Title</th>
-              </tr>
-              <?php
-              //print bills
-              foreach($bills as $value2)
-              {
-                  if(isset($value2['bill_short_title']))
+      <div id="right_side">
+          <div id="bills">
+              <table class="sortable">
+                  <thead>
+                  <tr>
+                      <th>Vote</th>
+                      <th class="vote_id">Vote ID</th>
+                      <th class="date">Date</th>
+                      <th>Bill Number</th>
+                      <th>Bill Short Title</th>
+                  </tr>
+                  </thead>
+                  <tbody></tbody>
+                  <?php
+                  //print bills
+                  foreach($bills as $value2)
                   {
-                      echo "<tr><td>" . $value2["vote"]. "</td><td>" . $value2["vote_id"] . "</td><td>" .$value2["date"]. "</td><td>" . $value2["bill_number"] . "</td><td>"
-                          . $value2["bill_short_title"]. "</td></tr>";
-                      /*
-                      echo $value2['date'];
-                      echo "  ";
-                      echo $value2['bill_number'];
-                      echo "  ";
-                      echo $value2['bill_short_title'];
-                      echo "  ";
-                      echo "<br>";
-                      */
-
+                      if(isset($value2['bill_short_title']))
+                      {
+                          echo "<tr><td>" . $value2["vote"]. "</td><td>" . $value2["vote_id"] . "</td><td>" .$value2["date"]. "</td><td>" . "<a class='one' href=" . $value2["url"] . ">" . $value2["bill_number"] . "</a></td><td>"
+                              . $value2["bill_short_title"] . "</td></tr>";
+                      }
                   }
-              }
-              echo "</table>";
-              ?>
+                  echo "</tbody>" . "</table>";
+                  ?>
+          </div>
       </div>
   </div>
   </body>

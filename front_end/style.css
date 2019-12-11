@@ -1,206 +1,62 @@
 /** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */
-html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {	margin: 0;	padding: 0;	border: 0;	font-size: 100%;	font: inherit;	vertical-align: baseline;}/* HTML5 display-role reset for older browsers */article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}body {	line-height: 1;}ol, ul {	list-style: none;}blockquote, q {	quotes: none;}blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}table {	border-collapse: collapse;	border-spacing: 0;}
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote,
+pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s,
+samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article,
+aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+output, ruby, section, summary,time, mark, audio, video {
+	margin: 0;	padding: 0;	border: 0;	font-size: 100%; font: inherit;
+	}
+
+/* HTML5 display-role reset for older browsers */article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}body {	line-height: 1;}ol, ul {	list-style: none;}blockquote, q {	quotes: none;}blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}table {	border-collapse: collapse;	border-spacing: 0;}
 
 /*=============================================
 =                  GENERAL                   =
 =============================================*/
 
 body {
-	font-size:13px;
+	font-size:20px;
 	font-family:Arial, sans-serif;
 }
 
-a {
+a.logo {
 	text-decoration:none;
 	color:inherit;
+	font-size: 44px;}
+
+a:hover {text-decoration:underline;}
+
+a{
+	text-decoration: none;
+	color: black;
+	font-size: 20px;}
+
+button:hover, a:hover {
+	opacity: 0.7;}
+
+a.contact{
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
 }
 
-a:hover {
-	text-decoration:underline;
-}
-
-/*=============================================
-=                  NAVIGATION                 =
-=============================================*/
-
-.nav_bar {
-	display:block;
-	float:right;
-}
-
-.nav_bar li {
-	display:inline-block;
-	padding-left:15px;
-}
-
-.nav_bar li img {
-	height:24px;
-	position:relative;
-	top:7px;
-}
-
-.nav_bar .portrait img {
-	border-radius:50%;
-	height:33px;
-}
-
-.portrait {
-	padding-right:25px;
-	position:relative;
-	top:3px;
-}
-
-/*=============================================
-=                  MAIN CENTER                =
-=============================================*/
-
-.container_main {
-	display:block;
-	width:100%;
-	text-align:center;
-}
-
-.logo {
-	width:100%;
-	padding-top:200px;
-	padding-bottom:25px;
-}
-
-.logo img {
-	display:block;
-	width: 60px;
-	height:100px;
-	margin:auto;
-}
-
-.searchbox {
-	width: 592px;
-	height: 27px;
-	margin:auto;
-	position:relative;
-}
-
-.searchbox input {
-	width:570px;
-	height:100%;
-	border:1px solid #DDDDDD;
-	padding: 0 10px;
-	position:relative;
-	float:left;
-	z-index:10;
-}
-
-.container_mic {
-	position:absolute;
-	width:100%;
-	height:100%;
-}
-
-.container_mic img {
-	float:right;
-	height:21px;
-	position:relative;
-	top:4px;
-	right:6px;
-	z-index:11;
-}
-
-.searchbox input:hover {
-	border:1px solid #AEAEAE;
-}
-
-.container_buttons_search {
-	display:block;
-	margin-top:15px;
-}
-
-.container_buttons_search .button_search {
-	margin-right:6px;
-	margin-left:6px;
-	border:1px solid #DDD;
-	padding: 8px 3px;
-	display: inline-block;
-	background-color:#F2F2F2;
-	font-size:11px;
-	font-weight:600;
-}
-
-.button_search:hover {
-	border-bottom: 2px solid #CACACA;
-	background-color:#F5F5F5;
-}
-
-.button_search {
-	font-size:11px;
-	font-weight:600;
-}
-
-.button_search a:hover {
-	text-decoration:none;
-}
-
-.button1_search {
-	width:90px;
-}
-
-
-.button2 {
-	width:105px;
-}
-
-/*=============================================
-=                    FOOTER                  =
-=============================================*/
-
-.footer {
-	position:absolute;
-	width:100%;
-	height:40px;
-	background-color:#F2F2F2;
-	bottom:1px;
-	border-top:1px solid #E4E4E4;
-}
-
-.footer_left {
-	display:block;
-	float:left;
-	width:48%;
-}
-
-.footer_right {
-	display: block;
-	text-align:right;
-}
-
-.footer_left ul li, .footer_right ul li{
-	display:inline-block;
-	padding-top:15px;
-	padding-bottom:10px;
-	color:#666;
-}
-
-.footer_left ul li{
-	padding-left:30px;
-}
-.footer_right ul li{
-	padding-right:30px;
+a.one{
+	text-decoration: none;
+	color: blue;
+	font-size: 20px;
 }
 
 /*=============================================
 =                Member Page                  =
 =============================================*/
 
-.member_info { grid-area: member; }
-.voting_record { grid-area: votes; }
-.bils {grid-area: bills;}
 
-
-.grid-container {
+#grid-container {
 	display: grid;
 	grid-template-areas:
-			'member votes bills bills';
+			'left_side right_side right_side';
 	grid-gap: 10px;
-	background-color: #2196F3;
+	background-color: white;
 	padding: 10px;
 }
 /*
@@ -212,22 +68,58 @@ a:hover {
 }
 */
 
-.member_info{
-	background-color: rgba(255, 255, 255, 0.8);
+#left_side{
+	grid-area: left_side;
 	text-align: center;
 	padding: 20px 0;
-	font-size: 20px;
-}
-.voting_record{
-	background-color: rgba(255, 255, 255, 0.8);
+	font-size: 20px;}
+#card{
+	box-shadow: 6px 6px 4px 6px grey;
+	margin: auto;
 	text-align: center;
-	padding: 20px 0;
+	font-family: arial, sans-serif;
+	background-color: white;}
+#right_side{
+	grid-area: right_side;
+	color: black;
 	font-size: 20px;
+	padding: 0px;
+	background-color: white;}
+#bills{
+	text-align: left;
+	font-size: 20px;
+	box-shadow: 6px 6px 4px 6px grey;
+	margin: 20px; /*keep this*/
+	border-width: 2px;
+	border-style:solid;
+	border-color:black;}
+.title {
+	color: grey;
+	font-size: 18px;}
+button {
+	border: none;
+	outline: 0;
+	display: inline-block;
+	padding: 8px;
+	color: white;
+	background-color: #000;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	font-size: 18px;
 }
 
-.bills{
-	background-color: rgba(255, 255, 255, 0.8);
-	text-align: left;
-	padding: 20px 0;
-	font-size: 20px;
+th, td{
+	padding: 10px;
+	border-bottom: 1px solid #ddd;}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+th.date{
+	width: 150px;
 }
+
+th.vote_id{
+	width: 50px;
+}
+

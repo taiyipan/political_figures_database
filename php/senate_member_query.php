@@ -63,7 +63,11 @@
 //query database for voting record
 //we want vote_id[1] and vote[4]
 $query2 = "SELECT * FROM senate_voting_records
-         WHERE member_id = 'W000817'"; //this is hard-coded and will need changed for production--works for testing
+         WHERE member_id = (
+              SELECT id
+              FROM senate_members
+              WHERE first_name = '$first_name'
+              AND last_name = '$last_name')";
 $result2 = $db -> query($query2) or die('Query failed');
 
 //iterate thru voting record and store in array
@@ -94,37 +98,49 @@ while($res2 = $result3 -> fetchArray(SQLITE3_ASSOC))
   $bills[$i]['bill_title'] = $res['bill_title'];
   $bills[$j]['bill_short_title'] = $res2['bill_short_title'];
   $bills[$j]['amendment_number'] = $res2['amendment_number'];
-  $bills[$i]['congress'] = $res['congress'];
-  $bills[$i]['session'] = $res['session'];
-  $bills[$i]['chamber'] = $res['chamber'];
-  $bills[$i]['url'] = $res['url'];
-  $bills[$i]['bill_latest_action'] = $res['bill_latest_action'];
-  $bills[$i]['amendment_number'] = $res['amendment_number'];
-  $bills[$i]['question'] = $res['question'];
-  $bills[$i]['question_text'] = $res['question_text'];
-  $bills[$i]['description'] = $res['description'];
-  $bills[$i]['vote_type'] = $res['vote_type'];
-  $bills[$i]['date'] = $res['date'];
-  $bills[$i]['result'] = $res['result'];
-  $bills[$i]['democratic_yes'] = $res['democratic_yes'];
-  $bills[$i]['democratic_no'] = $res['democratic_no'];
-  $bills[$i]['democratic_present'] = $res['democratic_present'];
-  $bills[$i]['democratic_not_voting'] = $res['democratic_not_voting'];
-  $bills[$i]['democratic_majority_position'] = $res['democratic_majority_position'];
-  $bills[$i]['republican_yes'] = $res['republican_yes'];
-  $bills[$i]['republican_no'] = $res['republican_no'];
-  $bills[$i]['republican_present'] = $res['republican_present'];
-  $bills[$i]['republican_not_voting'] = $res['republican_not_voting'];
-  $bills[$i]['republican_majority_position'] = $res['republican_majority_position'];
-  $bills[$i]['independent_yes'] = $res['independent_yes'];
-  $bills[$i]['independent_no'] = $res['independent_no'];
-  $bills[$i]['independent_present'] = $res['independent_present'];
-  $bills[$i]['independent_not_voting'] = $res['independent_not_voting'];
-  $bills[$i]['independent_majority_position'] = $res['independent_majority_position'];
-  $bills[$i]['total_yes'] = $res['total_yes'];
-  $bills[$i]['total_no'] = $res['total_no'];
-  $bills[$i]['total_present'] = $res['total_present'];
-  $bills[$i]['total_not_voting'] = $res['total_not_voting'];
+  $bills[$i]['congress'] = $res2['congress'];
+  $bills[$i]['session'] = $res2['session'];
+  $bills[$i]['chamber'] = $res2['chamber'];
+  $bills[$i]['url'] = $res2['url'];
+  $bills[$i]['bill_latest_action'] = $res2['bill_latest_action'];
+  $bills[$i]['amendment_number'] = $res2['amendment_number'];
+  $bills[$i]['question'] = $res2['question'];
+  $bills[$i]['question_text'] = $res2['question_text'];
+  $bills[$i]['description'] = $res2['description'];
+  $bills[$i]['vote_type'] = $res2['vote_type'];
+  $bills[$i]['date'] = $res2['date'];
+  $bills[$i]['result'] = $res2['result'];
+  $bills[$i]['democratic_yes'] = $res2['democratic_yes'];
+  $bills[$i]['democratic_no'] = $res2['democratic_no'];
+  $bills[$i]['democratic_present'] = $res2['democratic_present'];
+  $bills[$i]['democratic_not_voting'] = $res2['democratic_not_voting'];
+  $bills[$i]['democratic_majority_position'] = $res2['democratic_majority_position'];
+  $bills[$i]['republican_yes'] = $res2['republican_yes'];
+  $bills[$i]['republican_no'] = $res2['republican_no'];
+  $bills[$i]['republican_present'] = $res2['republican_present'];
+  $bills[$i]['republican_not_voting'] = $res2['republican_not_voting'];
+  $bills[$i]['republican_majority_position'] = $res2['republican_majority_position'];
+  $bills[$i]['independent_yes'] = $res2['independent_yes'];
+  $bills[$i]['independent_no'] = $res2['independent_no'];
+  $bills[$i]['independent_present'] = $res2['independent_present'];
+  $bills[$i]['independent_not_voting'] = $res2['independent_not_voting'];
+  $bills[$i]['total_yes'] = $res2['total_yes'];
+  $bills[$i]['total_no'] = $res2['total_no'];
+  $bills[$i]['total_present'] = $res2['total_present'];
+  $bills[$i]['total_not_voting'] = $res2['total_not_voting'];
   $j++;
 }
+
+  if($party == 'D')
+  {
+    $party = 'Democrat';
+  }
+  else if($party == 'R')
+  {
+    $party = 'Republican';
+  }
+  else if($party == 'ID')
+  {
+    $party = 'Independent';
+  }
 ?>
