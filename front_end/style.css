@@ -123,3 +123,36 @@ th.vote_id{
 	width: 50px;
 }
 
+.material-icons.md-48{
+	color: black;
+	font-size: 48px;
+}
+
+/*=============================================
+=                Index Page                   =
+=============================================*/
+
+
+.wrapper{
+	text-align: center;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: auto;
+
+	display:flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items:center;
+	height:100%;
+}
+
+select {
+	width: 50%;
+	border: none;
+	border-radius: 4px;
+	background-color: #f1f1f1;
+}
