@@ -20,7 +20,7 @@
             <img src="<?php echo $img_path ?>" alt="member" style="width:100%">
             <h1><?php echo $first_name . " " . $last_name . " - " . $title ?></h1>
             <p><?php echo $party ?></p>
-            <p><?php echo $state ?></p>
+            <p><?php echo $state ?>-<?php echo $district ?></p>
             <div style="margin: 24px 0;">
                 <a class='logo' href="https://www.youtube.com/<?php echo $youtube_account ?>"><i class="fa fa-youtube"></i></a>
                 <a class='logo' href="https://www.twitter.com/<?php echo $twitter_account ?>"><i class="fa fa-twitter"></i></a>
@@ -28,6 +28,7 @@
             </div>
             <p><button><a class='contact' href="<?php echo $contact_form ?>">Contact</a></button></p>
         </div>
+        <a href="index.html">Go back</a>
     </div>
 
     <div id= "right_side">

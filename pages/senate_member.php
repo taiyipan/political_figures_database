@@ -28,6 +28,7 @@
           </div>
           <p><button><a class='contact' href="<?php echo $contact_form ?>">Contact</a></button></p>
       </div>
+      <a href="index.html">Go back</a>
     </div>
 
       <div id="right_side">
