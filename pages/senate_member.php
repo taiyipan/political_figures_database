@@ -43,9 +43,21 @@
             <?php
               //populate table
               while ($row = $result2 -> fetchArray()) {
+                //if bill_short_title is null, replace it with description
+                if ($row['bill_short_title'] == null) {
+                  $bill_short_title = $row['description'];
+                } else {
+                  $bill_short_title = $row['bill_short_title'];
+                }
+                //if bill_number is null, replace it with nomination_id
+                if ($row['bill_number'] == null) {
+                  $bill_number = $row['nomination_id'];
+                } else {
+                  $bill_number = $row['bill_number'];
+                }
                 echo "<tr><td>" . $row["vote"]. "</td><td>" . $row["vote_id"] . "</td><td>" .$row["date"]. "</td><td>" .
-                     "<a class='one' href=" . $row["url"] . ">" . $row["bill_number"] . "</a></td><td>" .
-                     $row["bill_short_title"] . "</td><td>" . $row["question"] . "</td></tr>";
+                     "<a class='one' href=" . $row["url"] . ">" . $bill_number . "</a></td><td>" .
+                     $bill_short_title . "</td><td>" . $row["question"] . "</td></tr>";
               }
             ?>
           </table>
