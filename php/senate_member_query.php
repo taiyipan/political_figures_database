@@ -1,6 +1,6 @@
 <?php
   //connect to database
-  $path = 'political_figures_database.db';
+  $path = 'congress.db';
   $db = new SQLite3($path) or die('Unable to open database');
 
   //query database for member bio

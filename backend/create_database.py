@@ -2,7 +2,7 @@ import sqlite3
 import json
 
 # create database
-dbname = '../political_figures_database.db'
+dbname = 'congress.db'
 conn = sqlite3.connect(dbname)
 cur = conn.cursor()
 
@@ -182,6 +182,10 @@ cur.executescript('''
         amendment_sponsor_uri                 VARCHAR(100),
         amendment_sponsor_party               CHAR(1),
         amendment_sponsor_state               CHAR(2),
+        nomination_id                         VARCHAR(20),
+        nomination_number                     VARCHAR(10),
+        nomination_name                       VARCHAR(50),
+        nomination_agency                     VARCHAR(50),
         question                              VARCHAR(200),
         question_text                         VARCHAR(200),
         description                           VARCHAR(500),
@@ -625,6 +629,17 @@ while True:
         print('Source exhausted.')
         break
     v = senate_vote['results']['votes']['vote']
+    nom = v.get('nomination')
+    if nom is None:
+        nomination_id = None
+        nomination_number = None
+        nomination_name = None
+        nomination_agency = None
+    else:
+        nomination_id = nom.get('nomination_id')
+        nomination_number = nom.get('number')
+        nomination_name = nom.get('name')
+        nomination_agency = nom.get('agency')
     cur.execute('''
         INSERT INTO senate_votes (
             id,
@@ -647,6 +662,10 @@ while True:
             amendment_sponsor_uri,
             amendment_sponsor_party,
             amendment_sponsor_state,
+            nomination_id,
+            nomination_number,
+            nomination_name,
+            nomination_agency,
             question,
             question_text,
             description,
@@ -681,7 +700,8 @@ while True:
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-            ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?
         )''', (
         v['roll_call'],
         v['congress'],
@@ -703,6 +723,10 @@ while True:
         v['amendment'].get('sponsor_uri'),
         v['amendment'].get('sponsor_party'),
         v['amendment'].get('sponsor_state'),
+        nomination_id,
+        nomination_number,
+        nomination_name,
+        nomination_agency,
         v['question'],
         v['question_text'],
         v['description'],
