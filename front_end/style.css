@@ -90,9 +90,7 @@ a.one{
 	font-size: 20px;
 	box-shadow: 6px 6px 4px 6px grey;
 	margin: 20px; /*keep this*/
-	border-width: 2px;
-	border-style:solid;
-	border-color:black;}
+	}
 .title {
 	color: grey;
 	font-size: 18px;}
@@ -113,7 +111,7 @@ th, td{
 	padding: 10px;
 	border-bottom: 1px solid #ddd;}
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+tr:nth-child(odd) {background-color: #f2f2f2;}
 
 th.date{
 	width: 150px;
@@ -151,8 +149,45 @@ th.vote_id{
 }
 
 select {
-	width: 50%;
 	border: none;
-	border-radius: 4px;
-	background-color: #f1f1f1;
+	background-color: grey;
+	font-size: 18px;
+	color: white;
 }
+#search_box{
+	width: 500px;
+}
+#search_button{
+	background-color: grey;
+	border: none;
+	color: white;
+	padding: 15px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 18px;
+	width: 150px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.main{
+	display: flex;
+	flex-direction: row;
+}
+
+input[type="text"]::placeholder {
+
+	/* Firefox, Chrome, Opera */
+	text-align: center;
+	font-size: 18px;}
+
+.w3-input{padding:8px;
+	display:block;
+	border:none;
+	border-bottom:1px solid #ccc;
+	width:100%;}
+.w3-border{border:1px solid #ccc!important}
+.w3-round{
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;}
