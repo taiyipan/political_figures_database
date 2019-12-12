@@ -16,7 +16,7 @@
   <div id="grid-container">
     <div id="left_side">
       <div id="card">
-          <?php $img_path = "img/senate_members/" . strtolower($first_name) . "_" . strtolower($last_name) . ".jpg" ?>
+          <?php $img_path = "img/senate_members/" . strtolower($first_name) . "_" . preg_replace('/\s+/', '_', strtolower($last_name)) . ".jpg" ?>
           <img src="<?php echo $img_path ?>" alt="member" style="width:100%">
           <h1><?php echo $first_name . " " . $last_name . " - " . $title ?></h1>
           <p><?php echo $party ?></p>
