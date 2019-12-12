@@ -2,7 +2,7 @@ import sqlite3
 import json
 
 # create database
-dbname = 'political_figures_database.db'
+dbname = 'congress.db'
 conn = sqlite3.connect(dbname)
 cur = conn.cursor()
 
@@ -114,7 +114,7 @@ cur.executescript('''
     );
 
     CREATE TABLE IF NOT EXISTS house_votes (
-        id                                    INTEGER            PRIMARY KEY       AUTOINCREMENT,
+        id                                    INTEGER            PRIMARY KEY,
         congress                              INT,
         session                               INT,
         chamber                               VARCHAR(10),
@@ -162,7 +162,7 @@ cur.executescript('''
     );
 
     CREATE TABLE IF NOT EXISTS senate_votes (
-        id                                    INTEGER            PRIMARY KEY       AUTOINCREMENT,
+        id                                    INTEGER            PRIMARY KEY,
         congress                              INT,
         session                               INT,
         chamber                               VARCHAR(10),
@@ -229,8 +229,8 @@ cur.executescript('''
 ''')
 
 # data source
-house_members_fname = 'members_116/116_house_members.json'
-senate_members_fname = 'members_116/116_senate_members.json'
+house_members_fname = 'data/members/house.json'
+senate_members_fname = 'data/members/senate.json'
 
 # open files and read as JSON data
 house_members = json.loads(open(house_members_fname).read())
@@ -349,8 +349,8 @@ for entry in house_members['results'][0]['members']:
         # commit
         if cycle % 10 == 0:
             conn.commit()
-    except:
-        print(entry)
+    except Exception as e:
+        print(e)
 # final commit
 conn.commit()
 
@@ -467,19 +467,21 @@ for entry in senate_members['results'][0]['members']:
         # commit
         if cycle % 10 == 0:
             conn.commit()
-    except:
-        print(entry)
+    except Exception as e:
+        print(e)
 # final commit
 conn.commit()
 
 # create votes tables
-house_prefix = 'rollcall_votes/house_116/vote_'
-senate_prefix = 'rollcall_votes/senate_116/vote_'
+house_prefix = 'data/votes/house/'
+senate_prefix = 'data/votes/senate/'
 suffix = '.json'
 
 # read and insert data into house_votes
 cycle = 0
-for i in range(1, 2000):
+i = 0
+while True:
+    i += 1
     try:
         fname = house_prefix + str(i) + suffix
         house_vote = json.loads(open(fname).read())
@@ -490,6 +492,7 @@ for i in range(1, 2000):
     v = house_vote['results']['votes']['vote']
     cur.execute('''
         INSERT INTO house_votes (
+            id,
             congress,
             session,
             chamber,
@@ -539,8 +542,9 @@ for i in range(1, 2000):
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-            ?, ?, ?, ?
+            ?, ?, ?, ?, ?
         )''', (
+        v['roll_call'],
         v['congress'],
         v['session'],
         v['chamber'],
@@ -610,7 +614,9 @@ conn.commit()
 
 # read and insert data into senate_votes
 cycle = 0
-for i in range(1, 2000):
+i = 0
+while True:
+    i += 1
     try:
         fname = senate_prefix + str(i) + suffix
         senate_vote = json.loads(open(fname).read())
@@ -621,6 +627,7 @@ for i in range(1, 2000):
     v = senate_vote['results']['votes']['vote']
     cur.execute('''
         INSERT INTO senate_votes (
+            id,
             congress,
             session,
             chamber,
@@ -674,8 +681,9 @@ for i in range(1, 2000):
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-            ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?
         )''', (
+        v['roll_call'],
         v['congress'],
         v['session'],
         v['chamber'],
