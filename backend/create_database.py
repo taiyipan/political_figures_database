@@ -2,7 +2,7 @@ import sqlite3
 import json
 
 # create database
-dbname = 'congress.db'
+dbname = '../political_figures_database.db'
 conn = sqlite3.connect(dbname)
 cur = conn.cursor()
 
