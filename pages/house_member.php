@@ -16,18 +16,19 @@
       <div id="left_side">
         <div id="card">
           <?php $img_path = "img/house_members/" . preg_replace('/\s+/', '_', strtolower($first_name)) . "_" . preg_replace('/\s+/', '_', strtolower($last_name)) . ".jpg" ?>
-          <img src="<?php echo $img_path ?>" alt="member" style="width:100%">
+          <img class="sticky" src="<?php echo $img_path ?>" alt="member" style="width:100%">
           <h1><?php echo $first_name . " " . $last_name . " - " . $title ?></h1>
           <p><?php echo $party ?></p>
           <p><?php echo $state ?>-<?php echo $district ?></p>
           <div style="margin: 24px 0;">
+            <a class='logo' href="https://en.wikipedia.org/wiki/<?php echo $first_name . "_" . $last_name ?>"><i class="fa fa-wikipedia-w"></i></a>
             <a class='logo' href="https://www.youtube.com/<?php echo $youtube_account ?>"><i class="fa fa-youtube"></i></a>
             <a class='logo' href="https://www.twitter.com/<?php echo $twitter_account ?>"><i class="fa fa-twitter"></i></a>
             <a class='logo' href="https://www.facebook.com/<?php echo $facebook_account ?>"><i class="fa fa-facebook"></i></a>
           </div>
           <p><button><a class='contact' href="<?php echo $contact_form ?>">Contact</a></button></p>
         </div>
-        <a href="index.html">Go back</a> <!-- please style this into overall design -->
+        <!-- <div class="back"><a href="index.html">Go back</a></div> -->
       </div>
       <div id= "right_side">
         <div id="bills">
