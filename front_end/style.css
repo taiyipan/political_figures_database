@@ -90,9 +90,7 @@ a.one{
 	font-size: 20px;
 	box-shadow: 6px 6px 4px 6px grey;
 	margin: 20px; /*keep this*/
-	border-width: 2px;
-	border-style:solid;
-	border-color:black;}
+	}
 .title {
 	color: grey;
 	font-size: 18px;}
@@ -113,7 +111,7 @@ th, td{
 	padding: 10px;
 	border-bottom: 1px solid #ddd;}
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+tr:nth-child(odd) {background-color: #f2f2f2;}
 
 th.date{
 	width: 150px;
@@ -152,8 +150,9 @@ th.vote_id{
 
 select {
 	border: none;
-	background-color: #f1f1f1;
+	background-color: grey;
 	font-size: 18px;
+	color: white;
 }
 #search_box{
 	width: 500px;
@@ -167,7 +166,7 @@ select {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 18px;
-	width: 200px;
+	width: 150px;
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
 }
