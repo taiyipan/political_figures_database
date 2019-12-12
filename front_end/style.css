@@ -78,7 +78,9 @@ a.one{
 	margin: auto;
 	text-align: center;
 	font-family: arial, sans-serif;
-	background-color: white;}
+	background-color: white;
+	position: sticky;
+	top: 0;}
 #right_side{
 	grid-area: right_side;
 	color: black;
@@ -191,3 +193,9 @@ input[type="text"]::placeholder {
 .w3-round{
 	border-top-left-radius: 8px;
 	border-bottom-left-radius: 8px;}
+
+div.sticky {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+}
