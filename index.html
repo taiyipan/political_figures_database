@@ -68,8 +68,15 @@
         //updates this list in autcomplete
     $( "#search_box" ).autocomplete({
         source: sourceChoice,
-        });
-      }
+        change: function( event, ui ) {
+  val = $(this).val();
+  exists = $.inArray(val,settlements);
+  if (exists<0) {
+    $(this).val("");
+    return false;
+  }
+ }
+});
 //triggers array refresh when list is changed
 $('#search_area_list').on('change', function(){
  refreshArray();
