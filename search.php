@@ -11,6 +11,11 @@
       $tokens = explode(' ', $input, 2);
       $first_name = $tokens[0];
       $last_name = $tokens[1];
+      //edge cases
+      if ($input == 'C.A. Dutch Ruppersberger') {
+        $first_name = 'C.A. Dutch';
+        $last_name = 'Ruppersberger';
+      }
       include_once "pages/house_member.php";
       break;
 
