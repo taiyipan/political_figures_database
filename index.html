@@ -32,6 +32,7 @@
           <input type="text" id="search_box" name="input" placeholder="Search US Congressional Database">
           <input type="submit" id="search_button" name="search" value="Search" >
         </form>
+        </br><text id="validate"></text>
 
 
     </div>
@@ -94,11 +95,19 @@ source: sourceChoice
 function validate () {
   			val = $("#search_box").val();
         console.log("validate");
+        //changes text below if wrong answer in box
         if (sourceChoice.includes(val)) {
             $('input[type="submit"]').attr('disabled', false);
+            ///could add something here for this case
+            $("#validate").text("");
         } 
-        else {$('input[type="submit"]').attr('disabled', true);
+        else if (!sourceChoice.includes(val) && val != "")
+        {
+        $('input[type="submit"]').attr('disabled', true);
+        
+        $("#validate").text("Please select a Congressperson from the list.");
         }
+          else {  $("#validate").text("");}
 }
    
 //starts the dance when page is loaded
