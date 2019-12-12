@@ -8,10 +8,10 @@
   //branch into 4 paths
   switch ($area) {
     case 'house_members':
-      $tokens = explode(' ', $input, 2);
+      $tokens = explode(' ', $input, 2); //split string on first space
       $first_name = $tokens[0];
       $last_name = $tokens[1];
-      //edge cases
+      //edge case handling 
       if ($input == 'C.A. Dutch Ruppersberger') {
         $first_name = 'C.A. Dutch';
         $last_name = 'Ruppersberger';
@@ -20,7 +20,7 @@
       break;
 
     case 'senate_members':
-      $tokens = explode(' ', $input, 2);
+      $tokens = explode(' ', $input, 2); //split string on first space
       $first_name = $tokens[0];
       $last_name = $tokens[1];
       include_once "pages/senate_member.php";
