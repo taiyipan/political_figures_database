@@ -30,7 +30,7 @@
         </div>
 
         <div class="back">
-          <p><button><a class='contact' href="index.html">Search</a></button></p>
+          <p><button><a class='contact' href="index.html">More Search</a></button></p>
         </div>
 
       </div>
