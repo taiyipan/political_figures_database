@@ -42,14 +42,22 @@ def add_column(table, column, data_type):
         print(f'cannot add {column} to {table} table')
 
 
-#def add_values_to_column(value, column):
-#    cur.execute()
+def add_values_to_column(table, column, values, reference):
+    for (value, ref) in zip(values, reference):
+        if value is not None:
+            pass
+            # add value to said column in table
+        #else:
+        #    pass
+        print(f'{value} : {ref}')
 
 
-house_names = create_name_list('house_members')
-senate_names = create_name_list('senate_members')
+#house_names = create_name_list('house_members')
+#senate_names = create_name_list('senate_members')
 #house_wiki_urls = create_wiki_url_list(house_names)
 #senate_wiki_urls = create_wiki_url_list(senate_names)
 
 #add_column('house_members', 'wiki_url', 'varchar(255)')
 #add_column('senate_members', 'wiki_url', 'varchar(255)')
+
+#add_values_to_column(table=None, column=None, values=senate_wiki_urls, reference=senate_names)
