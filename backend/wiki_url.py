@@ -42,8 +42,8 @@ def add_column(table, column, data_type):
         print(f'cannot add {column} to {table} table')
 
 
-def add_values_to_column(value, column):
-    cur.execute()
+#def add_values_to_column(value, column):
+#    cur.execute()
 
 
 house_names = create_name_list('house_members')
