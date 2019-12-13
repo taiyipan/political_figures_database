@@ -4,7 +4,7 @@ import sqlite3
 
 
 # connect to political_figures_database.db
-conn = sqlite3.connect('../political_figures_database.db')
+conn = sqlite3.connect('../congress.db')
 cur = conn.cursor()
 
 # create house_member_dict from house_member table with names and bioguide_id
