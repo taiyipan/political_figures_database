@@ -6,7 +6,7 @@ import wikipedia
 # script creates wiki_url entry for each member of the db
 
 # connect to db
-conn = sqlite3.connect('./congress.db')
+conn = sqlite3.connect('../congress.db')
 cur = conn.cursor()
 
 
@@ -26,13 +26,30 @@ def create_wiki_url_list(name_list):
             title = f'{name}'+' '+f'{p}' if (f'{p}' in result for result in results) else name
             page = wikipedia.page(title)
             wiki_urls.append(page.url)
-        except:
+        except:  # Exception as CannotFindWikiURL
             print(f'cannot find url for: {name}')
             wiki_urls.append(None)
     return wiki_urls
 
 
-#house_names = create_name_list('house_members')
-#senate_names = create_name_list('senate_members')
+def add_column(table, column, data_type):
+    try:
+        cur.execute(f'''
+                ALTER TABLE {table}
+                ADD {column} {data_type}
+                ''')
+    except Exception as CannotAddColumn:
+        print(f'cannot add {column} to {table} table')
+
+
+#def add_values_to_column(value, column):
+#    cur.execute()
+
+
+house_names = create_name_list('house_members')
+senate_names = create_name_list('senate_members')
 #house_wiki_urls = create_wiki_url_list(house_names)
 #senate_wiki_urls = create_wiki_url_list(senate_names)
+
+#add_column('house_members', 'wiki_url', 'varchar(255)')
+#add_column('senate_members', 'wiki_url', 'varchar(255)')
