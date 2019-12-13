@@ -28,7 +28,10 @@
           </div>
           <p><button><a class='contact' href="<?php echo $contact_form ?>">Contact</a></button></p>
         </div>
-          <!-- <div class="back"><a href="index.html">Go back</a></div> -->
+
+          <div class="back">
+              <p><button><a class='contact' href="index.html">Search</a></button></p>
+          </div>
       </div>
       <div id= "right_side">
         <div id="bills">
