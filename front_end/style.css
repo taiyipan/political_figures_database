@@ -80,7 +80,8 @@ a.one{
 	font-family: arial, sans-serif;
 	background-color: white;
 	position: sticky;
-	top: 0;}
+	top: 30px;
+	margin-bottom: 250px;}
 #right_side{
 	grid-area: right_side;
 	color: black;
@@ -107,6 +108,17 @@ button {
 	cursor: pointer;
 	width: 100%;
 	font-size: 18px;
+}
+
+.back{
+	color: white;
+	font-size: 20px;
+	box-shadow: 6px 6px 4px 6px grey;
+	margin: auto;
+	text-align: center;
+	font-family: arial, sans-serif;
+	position: sticky;
+	top: 1080px;
 }
 
 th, td{
